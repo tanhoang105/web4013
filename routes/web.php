@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function(){
    
     Route::prefix('user')->name('user.')->group(function(){
         Route::get('/', [UserController::class , 'index'])->name('home');
-        Route::get('/update', [UserController::class , 'update'])->name('update-user');
+        Route::get('/show_list', [UserController::class , 'show_list'])->name('show_list');
         Route::get('/me', [MeController::class , 'index'])->name('me');
         Route::get('/cate', [CateController::class , 'index'])->name('cate');
         // Route::post('/cate', [CateController::class , 'index'])->name('postCate');

@@ -140,7 +140,7 @@
             <form action="" method="post">
                 @csrf
                 <span class="pull-right">Tổng số bản ghi tìm thấy: <span
-                        style="font-size: 15px;font-weight: bold;">8</span></span>
+                        style="font-size: 15px;font-weight: bold;">{{ count($list)}}</span></span>
                 <div class="clearfix"></div>
                 <div class="double-scroll">
                     <table class="table table-bordered">
@@ -150,32 +150,50 @@
                             </th>
                             <th class="text-center">Tên người dùng</th>
                             <th class="text-center">
-                                Email
+                               Đại chỉ
                             </th>
-                            <th class="text-center">Quyền</th>
+                            <th class="text-center">Date</th>
                             <th class="text-center">Trạng thái</th>
                         </tr>
 
-
+                        @if(!empty($list))
+                            @foreach ($list as $item)
                             <tr>
                                 {{--                                <td><input type="checkbox" name="chk_hv[]" class="chk_hv" id="chk_hv_{{$item->id}}" value="{{$item->id}}"> </td>--}}
-                                <td class="text-center">1</td>
+                                <td class="text-center">{{$item->id}}</td>
+                                <td class="text-center"><a style="color:#333333;font-weight: bold;" href="" style="white-space:unset;text-align: justify;"> {{$item->nameTeaher}} <i class="fa fa-edit"></i></a></td>
+                                <td class="text-center">{{$item->address}}</td>
+                                <td class="text-center">
+                                  {{$item->date}}
+                                </td>
+                                <td class="text-center">
+                                    {{$item->status}}
+                                  </td>
+
+                            </tr>
+                            @endforeach
+
+                        @endif
+                            {{-- <tr> --}}
+                                {{--                                <td><input type="checkbox" name="chk_hv[]" class="chk_hv" id="chk_hv_{{$item->id}}" value="{{$item->id}}"> </td>--}}
+                                {{-- <td class="text-center">1</td>
                                 <td class="text-center"><a style="color:#333333;font-weight: bold;" href="" style="white-space:unset;text-align: justify;"> Thắng <i class="fa fa-edit"></i></a></td>
                                 <td class="text-center">thanghoang064@gmail.com</td>
                                 <td class="text-center">
                                    nhân viên
                                 </td>
 
-                            </tr>
+                            </tr> --}}
 
                     </table>
+                    <div class="d-flex justify-content">
+                        {{ $list->appends($extParams)->links() }}       
+                    </div>
                 </div>
             </form>
         </div>
         <br>
-        <div class="text-center">
-            //phân trang
-        </div>
+        
         <index-cs ref="index_cs"></index-cs>
     </section>
 

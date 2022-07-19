@@ -12,17 +12,26 @@ class teachers extends Model
     protected $table = 'teachers';
     protected $fillable = ['id' , 'nameTeaher' , 'address' , 'status' , 'date' , 'created_at' , 'updated_at'];
 
-    public function loadList($param =  [] , $keyword = null){
+    // public function loadList($param =  [] , $keyword = null){
+    //     $query = DB::table($this->table)
+    //             ->select($this->fillable);
+
+    //     if(!empty($keyword) ){
+    //       $query =  $query->where(function($q) use ($keyword){
+    //             $q->orWhere('nameTeaher' , 'like' , '%'.$keyword.'%');
+    //             $q->orWhere('address' , 'like' , '%'.$keyword.'%');
+    //         });
+    //     }
+    //     return $list = $query->get();        
+
+    // }
+
+
+
+    public function loadListWithPager($param =  []){
         $query = DB::table($this->table)
                 ->select($this->fillable);
-
-        if(!empty($param) ){
-            $list = $query->where(function($q) use ($keyword){
-                $q->orWhere('nameTeaher' , 'like' , '%'.$keyword.'%');
-                $q->orWhere('address' , 'like' , '%'.$keyword.'%');
-            });
-        }
-        return $list = $query->get();        
-
+        $list = $query->paginate(10);
+        return $list;        
     }
 }

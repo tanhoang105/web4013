@@ -48,11 +48,13 @@ class LoginController extends Controller
             $password = $request->input('password');
             $name = $request->input('name');
             // kiểm tra đăng nhập
+            // mặc định auth sẽ kiểm tra email và password nếu cần kiểm tra thêm trường dữ liệu nào thì bổ sung thêm vào mảng
             if(Auth::attempt(['email' => $email, 'password' => $password , 'name' => $name] )){
                 // nếu đăng nhập thành công
                  return redirect('user/');
             }else{
                 // ngược lại nếu đăng nhập không thành công 
+                // dữ liệu sẽ đc lưu vào Session::falsh
                 Session::flash('error' , 'Thông tin đăng nhập không đúng');
                 return redirect('login');
             }

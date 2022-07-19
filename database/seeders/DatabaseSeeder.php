@@ -68,14 +68,14 @@ class DatabaseSeeder extends Seeder
                 ];
             
         }
-        // DB::table('teachers')->insert($teacherSeed);
-        DB::table('cate')->insert($cates);
+        DB::table('teachers')->insert($teacherSeed);
+        // DB::table('cate')->insert($cates);
 
-        DB::table('users')->insert([
-            'name' => "Poly",
-            'email' => 'poly@gmail.com',
-            'password' => Hash::make('123456'),
-        ]);
+        // DB::table('users')->insert([
+        //     'name' => "Poly",
+        //     'email' => 'poly@gmail.com',
+        //     'password' => Hash::make('123456'),
+        // ]);
 
     }
 }

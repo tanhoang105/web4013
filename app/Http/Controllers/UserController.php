@@ -30,9 +30,11 @@ class UserController extends Controller
 
     // query buillder
 
-    public function index(){
-        $teachers = $this->teacher->loadList();
-        $this->v['teachers'] = $teachers;
+    public function index(Request $request){
+        // $teachers = $this->teacher->loadList();
+        // $this->v['teachers'] = $teachers;
+        $this->v['extParams']  = $request->all(); // phục vụ cho việc lấy tham số để thực hiện việc lọc 
+        $this->v['list'] = $this->teacher->loadListWithPager($this->v['extParams']);
         // $this->v['users'] =  DB::table($this->table)->where('status' , 1)->get();
         return view('user.index' , $this->v);
 
@@ -40,8 +42,9 @@ class UserController extends Controller
     }   
 
 
-    public  function update(){
-        $title = 'Trang update';
-        return view('user.index');
+    public  function show_list(Request $request){
+       $this->v['extParams'] = $request->all();
+       $this->v['list'] = $this->teacher->loadListWithPager($this->v['extParams']);
+        return view('client.index' , $this->v);
     }
 }

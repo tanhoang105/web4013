@@ -42,9 +42,5 @@ class UserController extends Controller
     }   
 
 
-    public  function show_list(Request $request){
-       $this->v['extParams'] = $request->all();
-       $this->v['list'] = $this->teacher->loadListWithPager($this->v['extParams']);
-        return view('client.index' , $this->v);
-    }
+   
 }

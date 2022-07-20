@@ -31,6 +31,8 @@ class teachers extends Model
     public function loadListWithPager($param =  []){
         $query = DB::table($this->table)
                 ->select($this->fillable);
+
+                // hiển thị 10 bản ghi trong 1 trang 
         $list = $query->paginate(10);
         return $list;        
     }

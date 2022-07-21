@@ -31,11 +31,17 @@ Route::middleware(['auth'])->group(function(){
    
     Route::prefix('user')->name('user.')->group(function(){
         Route::get('/', [UserController::class , 'index'])->name('home');
-        Route::get('/show_list', [UserController::class , 'show_list'])->name('show_list');
-        Route::get('/me', [MeController::class , 'index'])->name('me');
-        Route::get('/cate', [CateController::class , 'index'])->name('cate');
+
+
+
+        // Route::get('/show_list', [UserController::class , 'show_list'])->name('show_list');
+        // Route::get('/me', [MeController::class , 'index'])->name('me');
+        // Route::get('/cate', [CateController::class , 'index'])->name('cate');
         // Route::post('/cate', [CateController::class , 'index'])->name('postCate');
     });
+
+    // vừa dùng cho cả get và post 
+    Route::match(['get', 'post'], '/user/add' , [UserController::class , 'add' ])->name('route_BackEnd_Users_Add');
 });
 
 

@@ -35,7 +35,6 @@ class LoginController extends Controller
             'password' => 'mật khẩu',
             'name'=> 'tên của bạn'
         ];
-       
 
         $validator = Validator::make($request->all() , $rules , $message , $attribute);
         // dd($validator);
@@ -54,10 +53,17 @@ class LoginController extends Controller
                  return redirect('user/');
             }else{
                 // ngược lại nếu đăng nhập không thành công 
-                // dữ liệu sẽ đc lưu vào Session::falsh
+                // dữ liệu sẽ đc lưu vào Session::falsh có thể là hiển thị ra thông báo lỗi nhưng cũng có thể hiển thị ra thông báo thành công
                 Session::flash('error' , 'Thông tin đăng nhập không đúng');
                 return redirect('login');
             }
         }
+    }
+
+
+    // hàm đăng xuất 
+    public function getLogout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

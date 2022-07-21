@@ -24,6 +24,9 @@ use Illuminate\Routing\Matching\HostValidator;
 //chỉ cần config đối với trang đăng nhập
 Route::get('login' , [LoginController::class , 'getLogin'])->name('login');
 Route::post('/login' , [LoginController::class , 'postLogin']);
+Route::get('/logout' , [LoginController::class , 'getLogout'])->name('logout');
+
+
 Route::middleware(['auth'])->group(function(){
    
     Route::prefix('user')->name('user.')->group(function(){

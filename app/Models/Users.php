@@ -26,9 +26,18 @@ class Users extends Model
     public function saveNew($param){
         $data = array_merge($param['cols'] , [
             // đây là mảng bổ sung
-            'password' => Hash::make($param['cols']['password'])
+            // ví dụ ở đây chúng ta mã hóa mật khẩu nên cần ghi đề lại mật khẩu cũ bằng mật khẩu mã hóa
+            'password' => Hash::make($param['cols']['password']) // mx hóa mk
         ]);
         $res = DB::table($this->table)->insertGetId($data);
+        /// insertGetId sẽ trả về id của bản ghi vừa mới đc insert
         return $res ;
+    }
+
+    public function loadOne($id , $param = null){
+        $query = DB::table($this->table)->where('id' , '=' , $id);
+        $obj = $query->first();
+
+        return $obj;
     }
 }

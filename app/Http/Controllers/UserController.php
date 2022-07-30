@@ -7,6 +7,7 @@ use App\Models\teachers;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -77,40 +78,71 @@ class UserController extends Controller
             //      return redirect()->route($method_route)->withErrors($validator)->withInput();
             // } else {
 
-                $params = [];
-                // dd($request->post());
-                $params['cols'] = array_map(function ($item) {
-                    // lọc sạch dữ liệu không có cx đc
-                    if ($item == '') {
-                        $item = null;
-                    }
-                    if (is_string($item)) {
-                        $item = trim($item);
-                    }
-                    return $item;
-                }, $request->post());
-                unset($params['cols']['_token']);
-
-                $res = $this->user->saveNew($params);
-                if ($res == null) {
-                    return redirect($method_route);
-                } elseif ($res > 0) {
-                    Session::flash('success', 'Thêm mới thành công người dùng');
-                } else {
-                    Session::flash('error', 'Thêm mới thành công người dùng');
-                    return redirect($method_route);
+            $params = [];
+            // dd($request->post());
+            $params['cols'] = array_map(function ($item) {
+                // lọc sạch dữ liệu không có cx đc
+                if ($item == '') {
+                    $item = null;
                 }
+                if (is_string($item)) {
+                    $item = trim($item);
+                }
+                return $item;
+            }, $request->post());
+            unset($params['cols']['_token']);
+
+            $res = $this->user->saveNew($params);
+            if ($res == null) {
+                return redirect($method_route);
+            } elseif ($res > 0) {
+                Session::flash('success', 'Thêm mới thành công người dùng');
+            } else {
+                Session::flash('error', 'Thêm mới thành công người dùng');
+                return redirect($method_route);
+            }
             // }
         }
 
         return view('user.add', $this->v);
     }
 
-    public function detail($id , Request $request ){
+    public function detail($id, Request $request)
+    {
         $this->v['_title'] =  'Chi tiết người dùng';
         $objItem = $this->user->loadOne($id);
         // dd($objItem);
-        $this->v['objItem']= $objItem;
-        return view('user.detail' , $this->v);
+        $this->v['objItem'] = $objItem;
+        return view('user.detail', $this->v);
+    }
+
+
+    public function update_User($id, Request  $request)
+    {
+        $method  =  'route_BackEnd_Users_Detail';
+        $params  = [];
+        $params['cols'] = array_map(function ($item) {
+            if ($item == '') {
+                $item = null;
+            }
+
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+            return $item;
+        }, $request->post());
+        unset($params['cols']['_token']);
+        $params['cols']['id'] = $id;
+        $params['cols']['password'] = Hash::make($params['cols']['password']);
+        $res = $this->user->saveUpdate($params);
+        if ($res ==  null) {
+            return redirect()->route($method, ['id' => $id]);
+        } else if ($res ==  1) {
+            return redirect()->route($method, ['id' => $id]);
+            Session::flash('success', 'Cập nhập bản ghi thành công');
+        } else {
+            Session::flash('error', "Lỗi cập nhập bản ghi");
+            return redirect()->route($method, ['id' => $id]);
+        }
     }
 }

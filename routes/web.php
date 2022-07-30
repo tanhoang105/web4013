@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function(){
     // vừa dùng cho cả get và post 
     Route::match(['get', 'post'], 'user-add' , [UserController::class , 'add' ])->name('route_BackEnd_Users_Add');
     Route::get('/detail-user/{id}' , [UserController::class , 'detail'])->name('route_BackEnd_Users_Detail');
+    Route::post('/update-user/{id}' , [UserController::class , 'update_User'])->name('route_BackEnd_Users_Update');
 });
 
 

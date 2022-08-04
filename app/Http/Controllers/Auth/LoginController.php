@@ -48,7 +48,7 @@ class LoginController extends Controller
             $name = $request->input('name');
             // kiểm tra đăng nhập
             // mặc định auth sẽ kiểm tra email và password nếu cần kiểm tra thêm trường dữ liệu nào thì bổ sung thêm vào mảng
-            if(Auth::attempt(['email' => $email, 'password' => $password , 'name' => $name] )){
+            if(Auth::attempt(['email' => $email, 'password' => $password] )){
                 // nếu đăng nhập thành công
                  return redirect('user/');
             }else{
@@ -60,7 +60,7 @@ class LoginController extends Controller
         }
     }
 
-
+    
     // hàm đăng xuất 
     public function getLogout(){
         Auth::logout();

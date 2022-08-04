@@ -13,7 +13,7 @@ class Users extends Model
     use HasFactory;
     // vì tên model không khớp với tên bảng nên cần cài đặt lại cho $table
     protected $table  = 'users';
-    protected $fillable = ['id', 'name', 'email', 'password'];
+    protected $fillable = ['id', 'name', 'email', 'password', 'hinh'];
 
 
     public function loadListWithPager($param =  [])
@@ -54,7 +54,8 @@ class Users extends Model
         }
         $dataUpdate = [];
         foreach ($params['cols'] as $colname =>  $val) {
-            if ($params['cols'] == 'id') continue;
+            if ($params['cols'] ==
+             'id') continue;
             if (in_array($colname, $this->fillable)) {
                 $dataUpdate[$colname] = (strlen($val) == 0) ? null : $val;
             }

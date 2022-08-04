@@ -92,7 +92,13 @@ class UserController extends Controller
             }, $request->post());
             unset($params['cols']['_token']);
 
+            //  dd($request->file());
+            if($request->file('cmt_mat_truoc')){
+                $params['cols']['hinh'] = $this->uploadFile($request->file('cmt_mat_truoc'));
+                //  dd($params['cols']['hinh']);
+            }
             $res = $this->user->saveNew($params);
+
             if ($res == null) {
                 return redirect($method_route);
             } elseif ($res > 0) {
@@ -144,5 +150,14 @@ class UserController extends Controller
             Session::flash('error', "Lỗi cập nhập bản ghi");
             return redirect()->route($method, ['id' => $id]);
         }
+    }
+
+
+    public function uploadFile($file)
+    {
+        $filename =  time(). '_' . $file->getClientOriginalName();
+        return $file->storeAs('anh_cmnn' , $filename ,  'public');
+
+    
     }
 }

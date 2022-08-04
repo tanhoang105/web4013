@@ -119,6 +119,21 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-4 control-label">Ảnh CMND/CCCD <span class="text-danger">(*)</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <img id="mat_truoc_preview"
+                                             src="{{ $objItem->hinh?''.Storage::url($objItem->hinh):'http://placehold.it/100x100' }}"
+                                             alt="your image"
+                                             style="max-width: 200px; height:100px; margin-bottom: 10px;" class="img-responsive"/>
+                                        <label for="cmt_truoc">Mặt trước</label><br/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

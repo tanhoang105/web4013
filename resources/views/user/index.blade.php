@@ -4,10 +4,10 @@
     <style>
         body {
             /*-webkit-touch-callout: none;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                -o-user-select: none;*/
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        -o-user-select: none;*/
             user-select: none;
         }
 
@@ -155,6 +155,7 @@
                             <th class="text-center">
                                 Đại chỉ
                             </th>
+                            <th class="text-center">Hình</th>
                             <th class="text-center">Date</th>
                             <th class="text-center">Trạng thái</th>
                         </tr>
@@ -168,12 +169,12 @@
                                             style="white-space:unset;text-align: justify;"> {{ $item->name }} <i
                                                 class="fa fa-edit"></i></a></td>
                                     <td class="text-center">{{ $item->email }}</td>
-                                    {{-- <td class="text-center">
-                                  {{$item->date}}
-                                </td>
-                                <td class="text-center">
-                                    {{$item->status}}
-                                  </td> --}}
+                                    <td>
+                                        <img id="mat_truoc_preview"
+                                            src="{{ $item->hinh ? '' . Storage::url($item->hinh) : 'http://placehold.it/100x100' }}"
+                                            alt="your image" style="max-width: 200px; height:100px; margin-bottom: 10px;"
+                                            class="img-responsive" />
+                                    </td>
 
                                 </tr>
                             @endforeach

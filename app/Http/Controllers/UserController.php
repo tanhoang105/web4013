@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Mail\OrderShipped;
 use App\Models\teachers;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,6 +37,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        Mail::to("hoangnhattan2k2@gmail.com")->send(new OrderShipped(['ma'=>'1232311']));
         // $teachers = $this->teacher->loadList();
         // $this->v['teachers'] = $teachers;
         $this->v['extParams']  = $request->all(); // phục vụ cho việc lấy tham số để thực hiện việc lọc 
